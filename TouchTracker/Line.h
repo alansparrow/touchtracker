@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Line : NSObject
+@interface Line : NSObject <NSCoding>
 
 @property (nonatomic) CGPoint begin;
 @property (nonatomic) CGPoint end;
+
++ (NSString *)archivePath;
 
 @end

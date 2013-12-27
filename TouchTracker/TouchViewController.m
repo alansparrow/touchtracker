@@ -7,7 +7,8 @@
 //
 
 #import "TouchViewController.h"
-#import "TouchDrawView.h"
+
+NSString *const TouchTrackerCompleteLinesPrefKey = @"TouchTrackerCompleteLinesPrefKey";
 
 @interface TouchViewController ()
 
@@ -36,7 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)loadView
+- (void)loadView
 {
     /*
      "If a view controller is owned by a window object, 
@@ -44,7 +45,27 @@
      The view controller’s root view is added as 
      a subview of the window and resized to fill the window."
      */
-    [self setView:[[TouchDrawView alloc] initWithFrame:CGRectZero]];
+    
+    TouchDrawView *tdv = [[TouchDrawView alloc] initWithFrame:CGRectZero];
+    [tdv setDelegate:self];
+    
+    NSString *path = [Line archivePath];
+    NSArray *completeLines = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    
+    if (completeLines)
+        [tdv setCompleteLines:[completeLines mutableCopy]];
+    
+    [self setView:tdv];
+}
+
+- (void)saveLines:(NSArray *)completeLines
+{
+    NSString *path = [Line archivePath];
+    NSLog([NSString stringWithFormat:@"%@", path]);
+    if ([NSKeyedArchiver archiveRootObject:completeLines toFile:path])
+        NSLog(@"Completed Lines are saved");
+    else
+        NSLog(@"Cannot save lines");
 }
 
 @end

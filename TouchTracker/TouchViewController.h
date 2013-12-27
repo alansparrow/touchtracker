@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Line.h"
+#import "TouchDrawView.h"
 
-@interface TouchViewController : UIViewController
+@interface TouchViewController : UIViewController <TouchDrawViewDelegate>
+{
+    
+}
+
+- (void)saveLines:(NSArray *)completeLines;
 
 @end

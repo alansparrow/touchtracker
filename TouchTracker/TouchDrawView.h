@@ -8,11 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TouchDrawViewDelegate
+//@optional try later
+- (void) saveLines:(NSArray *)completeLines;
+@end
+
 @interface TouchDrawView : UIView
+
 {
     NSMutableDictionary *linesInProcess;
-    NSMutableArray *completeLines;
 }
+
+@property (nonatomic, strong) NSMutableArray *completeLines;
+@property (nonatomic, assign) id delegate;
 
 - (void)clearAll;
 - (void)endTouches:(NSSet *)touches;

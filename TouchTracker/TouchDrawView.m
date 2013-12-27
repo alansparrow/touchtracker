@@ -11,11 +11,16 @@
 
 @implementation TouchDrawView
 
+@synthesize delegate;
+@synthesize completeLines;
+
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     
     if (self) {
+        
         linesInProcess = [[NSMutableDictionary alloc] init];
         
         // Don't let the autocomplete fool you on the
@@ -118,6 +123,12 @@
         // so make sure not to add it to the array
         if (line) {
             [completeLines addObject:line];
+    
+            if ([delegate respondsToSelector:@selector(saveLines:)]) {
+                NSArray *linesToBeSaved = completeLines;
+                [delegate saveLines:linesToBeSaved];
+            }
+            
             [linesInProcess removeObjectForKey:key];
         }
     }
