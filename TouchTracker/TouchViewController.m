@@ -85,6 +85,7 @@
     [tdv setCompleteLines:[self loadAllLines]];
     
     [self setView:tdv];
+    [UIApplication sharedApplication].statusBarHidden = YES;
 }
 
 - (void)saveCompletedLinesToDB
