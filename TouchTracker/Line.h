@@ -7,10 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Line : NSObject
+
+@interface Line : NSManagedObject
+{
+    
+}
+
+@property (nonatomic, strong) NSData * beginRawData;
+@property (nonatomic, strong) NSData * endRawData;
 
 @property (nonatomic) CGPoint begin;
 @property (nonatomic) CGPoint end;
+
++ (NSString *)archivePath;
 
 @end

@@ -19,9 +19,11 @@
 		D8C9BA3C186E0965006B11EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C9BA24186E0965006B11EB /* UIKit.framework */; };
 		D8C9BA44186E0966006B11EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8C9BA42186E0966006B11EB /* InfoPlist.strings */; };
 		D8C9BA46186E0966006B11EB /* TouchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C9BA45186E0966006B11EB /* TouchTrackerTests.m */; };
-		D8C9BA54186E0990006B11EB /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C9BA53186E0990006B11EB /* Line.m */; };
 		D8C9BA57186E09FC006B11EB /* TouchDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C9BA56186E09FC006B11EB /* TouchDrawView.m */; };
 		D8C9BA5A186E0B57006B11EB /* TouchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C9BA59186E0B57006B11EB /* TouchViewController.m */; };
+		D8CA6E6A186E402600915185 /* TouchTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8CA6E68186E402600915185 /* TouchTracker.xcdatamodeld */; };
+		D8CA6E6C186E412200915185 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CA6E6B186E412200915185 /* CoreData.framework */; };
+		D8CA6E75186E422C00915185 /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CA6E74186E422C00915185 /* Line.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,12 +53,14 @@
 		D8C9BA41186E0966006B11EB /* TouchTrackerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TouchTrackerTests-Info.plist"; sourceTree = "<group>"; };
 		D8C9BA43186E0966006B11EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D8C9BA45186E0966006B11EB /* TouchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchTrackerTests.m; sourceTree = "<group>"; };
-		D8C9BA52186E0990006B11EB /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
-		D8C9BA53186E0990006B11EB /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
 		D8C9BA55186E09FC006B11EB /* TouchDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchDrawView.h; sourceTree = "<group>"; };
 		D8C9BA56186E09FC006B11EB /* TouchDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchDrawView.m; sourceTree = "<group>"; };
 		D8C9BA58186E0B57006B11EB /* TouchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchViewController.h; sourceTree = "<group>"; };
 		D8C9BA59186E0B57006B11EB /* TouchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchViewController.m; sourceTree = "<group>"; };
+		D8CA6E69186E402600915185 /* TouchTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TouchTracker.xcdatamodel; sourceTree = "<group>"; };
+		D8CA6E6B186E412200915185 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D8CA6E73186E422C00915185 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		D8CA6E74186E422C00915185 /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CA6E6C186E412200915185 /* CoreData.framework in Frameworks */,
 				D8C9BA23186E0965006B11EB /* CoreGraphics.framework in Frameworks */,
 				D8C9BA25186E0965006B11EB /* UIKit.framework in Frameworks */,
 				D8C9BA21186E0965006B11EB /* Foundation.framework in Frameworks */,
@@ -105,6 +110,7 @@
 		D8C9BA1F186E0965006B11EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8CA6E6B186E412200915185 /* CoreData.framework */,
 				D8C9BA20186E0965006B11EB /* Foundation.framework */,
 				D8C9BA22186E0965006B11EB /* CoreGraphics.framework */,
 				D8C9BA24186E0965006B11EB /* UIKit.framework */,
@@ -159,8 +165,9 @@
 		D8C9BA4F186E096C006B11EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D8C9BA52186E0990006B11EB /* Line.h */,
-				D8C9BA53186E0990006B11EB /* Line.m */,
+				D8CA6E68186E402600915185 /* TouchTracker.xcdatamodeld */,
+				D8CA6E73186E422C00915185 /* Line.h */,
+				D8CA6E74186E422C00915185 /* Line.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -279,8 +286,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8C9BA31186E0965006B11EB /* AppDelegate.m in Sources */,
+				D8CA6E75186E422C00915185 /* Line.m in Sources */,
 				D8C9BA5A186E0B57006B11EB /* TouchViewController.m in Sources */,
-				D8C9BA54186E0990006B11EB /* Line.m in Sources */,
+				D8CA6E6A186E402600915185 /* TouchTracker.xcdatamodeld in Sources */,
 				D8C9BA57186E09FC006B11EB /* TouchDrawView.m in Sources */,
 				D8C9BA2D186E0965006B11EB /* main.m in Sources */,
 			);
@@ -483,6 +491,7 @@
 				D8C9BA4B186E0966006B11EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8C9BA4C186E0966006B11EB /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -491,8 +500,22 @@
 				D8C9BA4E186E0966006B11EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D8CA6E68186E402600915185 /* TouchTracker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D8CA6E69186E402600915185 /* TouchTracker.xcdatamodel */,
+			);
+			currentVersion = D8CA6E69186E402600915185 /* TouchTracker.xcdatamodel */;
+			path = TouchTracker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D8C9BA15186E0965006B11EB /* Project object */;
 }

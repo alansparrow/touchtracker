@@ -11,6 +11,9 @@
 
 @implementation TouchDrawView
 
+@synthesize delegate;
+@synthesize completeLines;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -40,6 +43,15 @@
     // Draw complete lines in black
     [[UIColor blackColor] set];
     for (Line *line in completeLines) {
+        
+        // Use this to wake this object up so it will
+        // fetch lazy data into begin, end variables
+        // If you don't do this, begin and end will be empty
+        // because awakeFromFetch didn't run
+        // May be this is for
+        //NSLog(@"%@", [line primitiveValueForKey:@"beginRawData"]);
+        NSLog(@"%@", [line beginRawData]);
+        
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
         CGContextStrokePath(context);
@@ -60,7 +72,16 @@
 {
     // Clear the collections
     [linesInProcess removeAllObjects];
+    
+    if ([delegate respondsToSelector:@selector(removeLinesInDB:)]) {
+        // Remove in DB too
+        [delegate removeLinesInDB:completeLines];
+    }
+
+    
     [completeLines removeAllObjects];
+    
+    
     
     // Redraw
     [self setNeedsDisplay];
@@ -80,7 +101,11 @@
         NSLog(@"%@", key);
         // Create a line for the value
         CGPoint loc = [t locationInView:self];
-        Line *newLine = [[Line alloc] init];
+        
+        Line *newLine = nil;
+        if ([delegate respondsToSelector:@selector(newLine)]) {
+            newLine = [delegate newLine];
+        }
         [newLine setBegin:loc];
         [newLine setEnd:loc];
         
@@ -119,6 +144,30 @@
         if (line) {
             [completeLines addObject:line];
             [linesInProcess removeObjectForKey:key];
+            
+            // Save to DB
+            if ([delegate respondsToSelector:@selector(saveCompletedLinesToDB)]) {
+                
+                // Wrap struct (primitive type) as an object, then assign to NSData variable
+
+                /*
+                [line setPrimitiveValue:[NSKeyedArchiver
+                                         archivedDataWithRootObject:[NSValue valueWithCGPoint:[line begin]]]
+                                 forKey:@"beginRawData"];
+                */
+                
+                [line setBeginRawData:[NSKeyedArchiver
+                                       archivedDataWithRootObject:[NSValue valueWithCGPoint:[line begin]]]];
+                [line setEndRawData:[NSKeyedArchiver
+                                     archivedDataWithRootObject:[NSValue valueWithCGPoint:[line end]]]];
+                /*
+                [line setPrimitiveValue:[NSKeyedArchiver
+                                         archivedDataWithRootObject:[NSValue valueWithCGPoint:[line end]]]
+                                 forKey:@"endRawData"];
+                 */
+                
+                [delegate saveCompletedLinesToDB];
+            }
         }
     }
     

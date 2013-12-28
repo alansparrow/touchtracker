@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Line" representedClassName="Line" syncable="YES">
+        <attribute name="begin" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="beginRawData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="end" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="endRawData" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Line" positionX="160" positionY="192" width="128" height="103"/>
+    </elements>
+</model>
