@@ -8,11 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TouchDrawView : UIView
+@class Line;
+
+@interface TouchDrawView : UIView <UIGestureRecognizerDelegate>
 {
     NSMutableDictionary *linesInProcess;
     NSMutableArray *completeLines;
+    
+    UIPanGestureRecognizer *moveRecognizer;
+    UIColor *lineColor;
+    double velocity;
 }
+
+@property (nonatomic, weak) Line *selectedLine;
+
+- (Line *)lineAtPoint:(CGPoint)p;
 
 - (void)clearAll;
 - (void)endTouches:(NSSet *)touches;
