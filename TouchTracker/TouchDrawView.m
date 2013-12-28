@@ -40,7 +40,7 @@
     CGContextSetLineWidth(context, 10.0);
     CGContextSetLineCap(context, kCGLineCapRound);
     
-        for (Line *line in completeLines) {
+    for (int i = 0; i < [completeLines count]; i += 2) {
         
         // Use this to wake this object up so it will
         // fetch lazy data into begin, end variables
@@ -48,35 +48,61 @@
         // because awakeFromFetch didn't run
         // May be this is for
         //NSLog(@"%@", [line primitiveValueForKey:@"beginRawData"]);
-        NSLog(@"%@", [line beginRawData]);
+        Line *l1 = [completeLines objectAtIndex:i];
+        Line *l2 = l1;
+        if (i+1 < [completeLines count]) {
+            l2 = [completeLines objectAtIndex:i+1];
+        }
         
-        // Draw complete lines in different colors
-        // depend on their areas in Cartesian coordinate system
-        double xDiff = [line end].x - [line begin].x;
-        double yDiff = [line end].y - [line begin].y;
+        NSLog(@"%@", [l1 beginRawData]);
+        NSLog(@"%@", [l2 beginRawData]);
         
-        if (xDiff >= 0 && yDiff >= 0)
-            [[UIColor blueColor] set];
-        else if (xDiff >= 0 && yDiff <= 0)
-            [[UIColor yellowColor] set];
-        else if (xDiff <= 0 && yDiff >= 0)
-            [[UIColor magentaColor] set];
-        else if (xDiff <= 0 && yDiff <= 0)
-            [[UIColor greenColor] set];
-
         
-        CGContextMoveToPoint(context, [line begin].x, [line begin].y);
-        CGContextAddLineToPoint(context, [line end].x, [line end].y);
+        double radius = sqrt(pow([l1 end].x - [l2 end].x, 2) +
+                             pow([l1 end].y - [l2 end].y, 2)) / 2;
+        CGPoint center = CGPointMake(([l1 end].x + [l2 end].x) / 2,
+                                     ([l1 end].y + [l2 end].y) / 2);
+        CGContextAddArc(context, center.x, center.y,
+                        radius, 0, M_PI*2.0, YES);
+        
+        NSArray *colors = [NSArray arrayWithObjects:[UIColor greenColor],
+                           [UIColor greenColor],
+                           [UIColor magentaColor],
+                           [UIColor brownColor],
+                           [UIColor orangeColor],
+                           [UIColor purpleColor],
+                           nil];
+        
+        UIColor *color = [colors objectAtIndex:(rand() % 6)];
+        [color set];
+        
         CGContextStrokePath(context);
     }
     
     // Draw lines in process in red (Don't copy and paste
     // the previous loop; this one is way different)
     [[UIColor redColor] set];
-    for (NSValue *v in linesInProcess) {
-        Line *line = [linesInProcess objectForKey:v];
-        CGContextMoveToPoint(context, [line begin].x, [line begin].y);
-        CGContextAddLineToPoint(context, [line end].x, [line end].y);
+    
+    if ([linesInProcess count] == 2) {
+        NSArray *lines = [[linesInProcess objectEnumerator] allObjects];
+        Line *l1 = [lines objectAtIndex:0];
+        Line *l2 = [lines objectAtIndex:1];
+        
+        CGContextMoveToPoint(context, [l1 begin].x, [l1 begin].y);
+        CGContextAddLineToPoint(context, [l1 end].x, [l1 end].y);
+        CGContextStrokePath(context);
+        
+        
+        CGContextMoveToPoint(context, [l2 begin].x, [l2 begin].y);
+        CGContextAddLineToPoint(context, [l2 end].x, [l2 end].y);
+        CGContextStrokePath(context);
+        
+        double radius = sqrt(pow([l1 end].x - [l2 end].x, 2) +
+                             pow([l1 end].y - [l2 end].y, 2)) / 2;
+        CGPoint center = CGPointMake(([l1 end].x + [l2 end].x) / 2,
+                                     ([l1 end].y + [l2 end].y) / 2);
+        CGContextAddArc(context, center.x, center.y,
+                        radius, 0, M_PI*2.0, YES);
         CGContextStrokePath(context);
     }
 }
@@ -90,7 +116,7 @@
         // Remove in DB too
         [delegate removeLinesInDB:completeLines];
     }
-
+    
     
     [completeLines removeAllObjects];
     
@@ -160,25 +186,10 @@
             
             // Save to DB
             if ([delegate respondsToSelector:@selector(saveCompletedLinesToDB)]) {
-                
-                // Wrap struct (primitive type) as an object, then assign to NSData variable
-
-                /*
-                [line setPrimitiveValue:[NSKeyedArchiver
-                                         archivedDataWithRootObject:[NSValue valueWithCGPoint:[line begin]]]
-                                 forKey:@"beginRawData"];
-                */
-                
                 [line setBeginRawData:[NSKeyedArchiver
                                        archivedDataWithRootObject:[NSValue valueWithCGPoint:[line begin]]]];
                 [line setEndRawData:[NSKeyedArchiver
                                      archivedDataWithRootObject:[NSValue valueWithCGPoint:[line end]]]];
-                /*
-                [line setPrimitiveValue:[NSKeyedArchiver
-                                         archivedDataWithRootObject:[NSValue valueWithCGPoint:[line end]]]
-                                 forKey:@"endRawData"];
-                 */
-                
                 [delegate saveCompletedLinesToDB];
             }
         }
