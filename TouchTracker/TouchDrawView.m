@@ -42,9 +42,28 @@
     CGContextSetLineWidth(context, 10.0);
     CGContextSetLineCap(context, kCGLineCapRound);
     
-    // Draw complete lines in black
-    [[UIColor blackColor] set];
+    
+    
+    //[[UIColor blackColor] set];
     for (Line *line in completeLines) {
+        // Draw complete lines in different colors
+        // depend on their areas in Cartesian coordinate system
+        double xDiff = [line end].x - [line begin].x;
+        double yDiff = [line end].y - [line begin].y;
+        
+        if (xDiff >= 0 && yDiff >= 0)
+            [[UIColor blueColor] set];
+        else if (xDiff >= 0 && yDiff <= 0)
+            [[UIColor yellowColor] set];
+        else if (xDiff <= 0 && yDiff >= 0)
+            [[UIColor magentaColor] set];
+        else if (xDiff <= 0 && yDiff <= 0)
+            [[UIColor greenColor] set];
+            
+        
+        
+        
+        
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
         CGContextStrokePath(context);

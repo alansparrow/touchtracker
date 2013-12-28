@@ -56,6 +56,7 @@ NSString *const TouchTrackerCompleteLinesPrefKey = @"TouchTrackerCompleteLinesPr
         [tdv setCompleteLines:[completeLines mutableCopy]];
     
     [self setView:tdv];
+    [UIApplication sharedApplication].statusBarHidden = YES;
 }
 
 - (void)saveLines:(NSArray *)completeLines
