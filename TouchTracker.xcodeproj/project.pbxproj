@@ -347,6 +347,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					VIEW_DEBUG,
 					"DEBUG=1",
 					"$(inherited)",
 				);
@@ -483,6 +484,7 @@
 				D8C9BA4B186E0966006B11EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8C9BA4C186E0966006B11EB /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +493,7 @@
 				D8C9BA4E186E0966006B11EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
