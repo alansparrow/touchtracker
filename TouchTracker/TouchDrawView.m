@@ -17,6 +17,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        lineColor = [UIColor blackColor];
         linesInProcess = [[NSMutableDictionary alloc] init];
         
         // Don't let the autocomplete fool you on the
@@ -260,6 +261,12 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     // Draw complete lines in black
     [lineColor set];
     for (Line *line in completeLines) {
+        
+        if (![line color]) {
+            [lineColor set];
+        } else {
+            [[line color] set];
+        }
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
         CGContextStrokePath(context);
@@ -358,6 +365,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         // If this is a double tap, 'line' will be nil,
         // so make sure not to add it to the array
         if (line) {
+            [line setColor:lineColor];
             [completeLines addObject:line];
             [linesInProcess removeObjectForKey:key];
         }

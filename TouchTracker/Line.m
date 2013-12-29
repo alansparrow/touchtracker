@@ -10,6 +10,6 @@
 
 @implementation Line
 
-@synthesize begin, end;
+@synthesize begin, end, color;
 
 @end
